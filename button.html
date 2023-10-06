@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="icon" href="favicon.png" type="image/png">
+  <link rel="stylesheet" href="fonts/icomoon/style.css">
+  <title>Поле поиска</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: #6ee1f0;
+    }
+
+    .nav-bar {
+      background: #f3f7fa92;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 260px;
+      padding: 10px;
+      position: fixed;
+      height: 100%;
+      right: 0;
+      top: 0;
+    }
+
+    .nav-btn {
+      margin-bottom: 10px;
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 16px;
+    }
+
+    .content {
+      margin-right: 220px;
+    }
+
+    .search-box {
+      position: absolute;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #75c8f5;
+      height: 40px;
+      border-radius: 40px;
+      padding: 10px;
+    }
+
+    .search-box:hover > .search-txt {
+      width: 240px;
+      padding: 0 6px;
+    }
+
+    .search-box:hover > .search-btn {
+      background: white;
+      color: black;
+    }
+
+    .search-btn {
+      color: #eeeeee;
+      float: right;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #659ae4;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: 0.4s;
+      color: white;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .search-btn svg {
+      fill: black;
+    }
+
+    .search-txt {
+      border: none;
+      background: none;
+      outline: none;
+      float: left;
+      padding: 0;
+      color: white;
+      font-size: 16px;
+      transition: 0.4s;
+      line-height: 40px;
+      width: 0px;
+      font-weight: bold;
+    }
+
+    .outlined-text {
+      color: #fff;
+      text-shadow: -1px -1px 0 rgb(13, 94, 233), 1px -1px 0 #146ebd, -1px 1px 0 #2477fd, 1px 1px 0 #0074f0;
+      margin-left: 320px;
+      font-size: 50px;
+      font-family: Bookman;
+      color: #ffffff;
+      font-weight: bold;
+    }
+
+    .logo {
+      width: 180px;
+      height: 180px;
+      vertical-align: middle;
+    }
+
+    .my-button {
+      font-size: 20px;
+      font-family: Courier New, sans-serif;
+      color: rgb(0, 0, 0);
+      padding: 30px 105px;
+      margin-top: 20px;
+      margin-right: 1px;
+      background-color: #5ab9f800;
+      color: #5488b3;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      font-weight: bold;
+    }
+
+    .my-button1 {
+      font-size: 20px;
+      font-family: Courier New, sans-serif;
+      padding: 30px 90px;
+      margin-top: 20px;
+      margin-right: 5px;
+      background-color: #5bbafa00;
+      color: #447aa0;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      font-weight: bold;
+    }
+
+    .my-button2 {
+      font-size: 20px;
+      font-family: Courier New, sans-serif;
+      padding: 30px 25px;
+      margin-top: 20px;
+      margin-right: 1px;
+      background-color: #65c0fc00;
+      color: #397ca0;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      font-weight: bold;
+    }
+
+    .my-button3 {
+      font-size: 20px;
+      font-family: Courier New, sans-serif;
+      padding: 30px 80px;
+      margin-top: 120px;
+      margin-right: 0px;
+      font-weight: bold;
+      background-color: #47b1f700;
+      color: #3184b8;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    body {
+      background-image: url('NEMO0.png');
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+
+    .header {
+      margin-left: 0px;
+      margin-top: 0px;
+      display: flex;
+      align-items: center;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.4);
+    }
+
+    .modal-content {
+      background-color: #fefefe;
+      margin: 15% auto;
+      padding: 20px;
+      border: 1px solid #888;
+      width: 80%;
+    }
+
+    .close {
+      color: #aaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+      color: black;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .menu-btn {
+      display: none;
+      color: white;
+      font-size: 24px;
+      cursor: pointer;
+      margin-bottom: 10px;
+    }
+
+    .menu-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 260px;
+      padding: 10px;
+      position: fixed;
+      height: 100%;
+      right: 1px;
+      top: 0;
+      background: #f3f7fa92;
+      transition: right 0.3s ease-in-out;
+    }
+
+    .menu-buttons {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 20px;
+    }
+
+    .menu-btn a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 16px;
+      margin-bottom: 10px;
+    }
+
+    @media (max-width: 768px) {
+      .menu-btn {
+        display: block;
+        position: fixed;
+        top: 10px;
+        right: 10px;
+      }
+
+      .menu-container.show {
+        right: 0;
+      }
+
+      .menu-buttons {
+        margin-top: 0;
+      }
+
+      .menu-btn a {
+        font-size: 20px;
+        padding: 15px;
+        background-color: #f3f7fa92;
+        border-radius: 5px;
+      }
+
+      .search-box {
+        top: 10px;
+      }
+    }
+
+    .topnav {
+      overflow: hidden;
+      background-color: #333;
+    }
+
+    .topnav a {
+      float: left;
+      display: block;
+      color: white;
+      text-align: center;
+      padding: 14px 16px;
+      text-decoration: none;
+    }
+
+    @media screen and (max-width: 600px) {
+      .topnav a {
+        float: none;
+        width: 100%;
+      }
+    }
+
+    #registrationForm {
+      text-align: center;
+    }
+
+    #registrationForm h2 {
+      margin-bottom: 20px;
+      font-size: 24px;
+      color: #333;
+    }
+
+    #registrationForm label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+      color: #333;
+    }
+
+    #registrationForm input[type="text"],
+    #registrationForm input[type="email"],
+    #registrationForm input[type="password"] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #216a98;
+      border-radius: 4px;
+      font-size: 16px;
+    }
+
+    #registrationForm button {
+      background-color: #0074f0;
+      color: white;
+      padding: 10px 20px;
+      font-size: 18px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    #registrationForm button:hover {
+      background-color: #0050a5;
+    }
+  </style>
+</head>
+
+<body background="NEMO0.png">
+  <div class="topnav">
+    <a href="#" class="menu-btn" onclick="toggleMenu()">
+      <i class="fa fa-bars"></i>
+    </a>
+    <div class="menu-container">
+      <div class="menu-buttons">
+        <a href="#" class="my-button3" onclick="openModal()">Реєстрація</a>
+        <a href="button4.html" class="my-button">Номера<br>і ціни</a>
+        <a href="button2.html" class="my-button1">Контакти</a>
+        <a href="button5.html" class="my-button2">MASSAGE&COSMETOLOGY</a>
+      </div>
+    </div>
+  </div>
+  <div class="content">
+    <div class="header">
+      <img src="дил.png" class="logo">
+      <h1 class="outlined-text" class="title">Готельний комплекс «Немо»</h1>
+    </div>
+  </div>
+
+  <div id="myModal" class="modal">
+    <div class="modal-content" style="width: 60%;">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <form id="registrationForm">
+        <h2>Реєстрація</h2>
+        <label for="firstName">Ім'я:</label>
+        <input type="text" id="firstName" name="firstName" required>
+        <label for="lastName">Прізвище:</label>
+        <input type="text" id="lastName" name="lastName" required>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+        <label for="password">Пароль:</label>
+        <input type="password" id="password" name="password" required>
+        <button type="submit" onclick="closeModal()">Зареєструватися</button>
+      </form>
+      <button onclick="goToHome()" style="background-color: #0074f0; color: white;">Назад</button>
+    </div>
+  </div>
+
+  <script>
+    function goToHome() {
+      closeModal();
+      window.location.href = "button.html";
+    }
+
+    function openModal() {
+      document.getElementById("myModal").style.display = "block";
+    }
+
+    function closeModal() {
+      document.getElementById("myModal").style.display = "none";
+    }
+
+    document.getElementById("registrationForm").addEventListener("submit", function (event) {
+      event.preventDefault();
+      var firstName = document.getElementById("firstName").value;
+      var lastName = document.getElementById("lastName").value;
+      var email = document.getElementById("email").value;
+      var password = document.getElementById("password").value;
+    });
+
+    function toggleMenu() {
+      var menuContainer = document.querySelector(".menu-container");
+      menuContainer.classList.toggle("show");
+    }
+  </script>
+
+</body>
+
+</html>
